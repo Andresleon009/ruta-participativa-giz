@@ -509,7 +509,7 @@
 
           <li class="station" id="estacion-2">
             <div class="station-marker" aria-hidden="true"><span class="station-number">2</span><span class="station-node"></span></div>
-            <a class="station-card" href="#" aria-label="Estación 2: La violencia nos daña">
+            <a class="station-card" href="estaciones/estacion-2.html" aria-label="Estación 2: La violencia nos daña">
               <span class="station-image-slot">
                 <!-- Ilustración integrada desde: assets/images/estacion-2.png -->
                 <img class="station-illustration" src="assets/images/estacion-2.png" alt="" onload="this.classList.add('is-loaded')" onerror="this.removeAttribute('src')">
@@ -639,6 +639,10 @@
     document.querySelectorAll('.station-card[href="#"], [data-demo-link]').forEach(function (link) {
       link.addEventListener('click', function (event) { event.preventDefault(); });
     });
+
+    if (new URLSearchParams(window.location.search).get('view') === 'stations') {
+      showJourney('estacion-1');
+    }
   </script>
 </body>
 </html>
