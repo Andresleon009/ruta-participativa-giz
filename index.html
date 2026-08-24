@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Ruta Participativa: de salto en salto a la violencia ponemos alto.">
+  <title>Ruta Participativa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #168ccb;
+      --blue-button: #0877d1;
+      --blue-dark: #075b8f;
+      --blue-pale: #eaf7fc;
+      --ink: #243746;
+      --muted: #66747b;
+      --pink: #e83e78;
+      --green: #5daa32;
+      --yellow: #f5a600;
+      --orange: #f26a0a;
+      --surface: #ffffff;
+      --page: #fafcfd;
+      --shadow: 0 9px 26px rgba(20, 77, 107, .09), 0 2px 7px rgba(20, 77, 107, .045);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: #edf3f6;
+      font-family: "Nunito", ui-rounded, "Arial Rounded MT Bold", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, a { font: inherit; }
+
+    .app-shell {
+      width: 100%;
+      max-width: 460px;
+      min-height: 100vh;
+      margin: 0 auto;
+      overflow: hidden;
+      background: var(--page);
+      box-shadow: 0 0 42px rgba(19, 63, 84, .08);
+    }
+
+    main { padding-bottom: calc(114px + var(--safe-bottom)); }
+
+    .hero {
+      position: relative;
+      min-height: 365px;
+      padding: 20px 25px 8px;
+      isolation: isolate;
+    }
+
+    .hero-copy { position: relative; z-index: 3; }
+
+    .hero h1 {
+      max-width: 285px;
+      margin: 0;
+      color: var(--blue-dark);
+      font-size: clamp(48px, 12.7vw, 58px);
+      font-weight: 900;
+      letter-spacing: -.052em;
+      line-height: .91;
+    }
+
+    .hero-tagline {
+      width: 270px;
+      margin: 24px 0 0;
+      color: var(--blue);
+      font-size: clamp(22px, 5.65vw, 26px);
+      font-weight: 800;
+      letter-spacing: -.025em;
+      line-height: 1.08;
+    }
+
+    .hero-intro {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: clamp(20px, 5vw, 23px);
+      font-weight: 600;
+      letter-spacing: -.015em;
+      line-height: 1.15;
+    }
+
+    .hero-visual {
+      position: absolute;
+      z-index: 1;
+      top: 22px;
+      right: -16px;
+      width: 250px;
+      height: 268px;
+      pointer-events: none;
+    }
+
+    .hero-blob {
+      position: absolute;
+      inset: 17px 0 7px 29px;
+      background: var(--blue-pale);
+      border-radius: 46% 54% 58% 42% / 43% 42% 58% 57%;
+      transform: rotate(7deg);
+    }
+
+    .cloud, .cloud::before, .cloud::after {
+      position: absolute;
+      display: block;
+      content: "";
+      background: rgba(255, 255, 255, .88);
+      border-radius: 999px;
+    }
+
+    .cloud { width: 44px; height: 12px; top: 42px; right: 31px; }
+    .cloud::before { width: 19px; height: 19px; left: 7px; bottom: 1px; }
+    .cloud::after { width: 15px; height: 15px; right: 7px; bottom: 1px; }
+    .cloud-small { top: 190px; right: 196px; transform: scale(.66); opacity: .78; }
+
+    .hero-route {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .hero-image-slot {
+      position: absolute;
+      z-index: 2;
+      inset: 33px 11px 18px 32px;
+      display: grid;
+      place-items: center;
+    }
+
+    .hero-image-slot::after {
+      content: "";
+      width: 52px;
+      height: 38px;
+      border: 2px dashed rgba(22, 140, 203, .2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .17);
+    }
+
+    .hero-image-slot:has(img.is-loaded)::after { display: none; }
+
+    .hero-image-slot img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      opacity: 0;
+    }
+
+    .hero-image-slot img.is-loaded { opacity: 1; }
+
+    .primary-cta {
+      width: calc(100% - 50px);
+      min-height: 78px;
+      margin: 0 25px;
+      padding: 10px 12px 10px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      background: var(--blue-button);
+      border: 0;
+      border-radius: 39px;
+      box-shadow: 0 10px 24px rgba(8, 119, 209, .19);
+      font-size: clamp(19px, 5vw, 22px);
+      font-weight: 900;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+    }
+
+    .primary-cta:hover { background: #066fc4; box-shadow: 0 12px 27px rgba(8, 119, 209, .23); }
+    .primary-cta:active { transform: translateY(2px); }
+    .primary-cta[hidden] { display: none; }
+
+    .cta-arrow {
+      flex: 0 0 auto;
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      color: var(--blue-button);
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    .cta-arrow svg { width: 25px; height: 25px; }
+
+    .journey {
+      position: relative;
+      margin-top: 47px;
+      padding: 0 22px 10px;
+    }
+
+    .journey[hidden] { display: none; }
+
+    .journey.is-revealed {
+      animation: reveal-journey .24s ease-out both;
+    }
+
+    @keyframes reveal-journey {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .journey-path {
+      position: absolute;
+      z-index: 0;
+      top: -21px;
+      bottom: 66px;
+      left: 28px;
+      width: 75px;
+      height: calc(100% - 45px);
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .journey-list {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 17px;
+      list-style: none;
+    }
+
+    .station {
+      --station: var(--blue);
+      position: relative;
+      min-height: 142px;
+      display: grid;
+      grid-template-columns: 67px minmax(0, 1fr);
+      align-items: center;
+      scroll-margin-top: 18px;
+    }
+
+    .station:nth-child(2) { --station: var(--pink); }
+    .station:nth-child(3) { --station: var(--green); }
+    .station:nth-child(4) { --station: var(--yellow); }
+    .station:nth-child(5) { --station: var(--orange); }
+
+    .station-marker {
+      position: relative;
+      align-self: stretch;
+      color: var(--station);
+    }
+
+    .station-number {
+      position: absolute;
+      top: 42px;
+      left: 0;
+      font-size: clamp(45px, 11vw, 52px);
+      font-weight: 900;
+      letter-spacing: -.07em;
+      line-height: 1;
+    }
+
+    .station-node {
+      position: absolute;
+      z-index: 2;
+      top: 63px;
+      right: 1px;
+      width: 17px;
+      height: 17px;
+      background: var(--station);
+      border: 4px solid var(--page);
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px var(--station);
+    }
+
+    .station-card {
+      width: 100%;
+      min-height: 142px;
+      padding: 14px 11px 14px 13px;
+      display: grid;
+      grid-template-columns: minmax(75px, 35%) minmax(0, 1fr) 30px;
+      align-items: center;
+      color: inherit;
+      text-decoration: none;
+      background: var(--surface);
+      border: 1px solid rgba(13, 91, 143, .045);
+      border-radius: 29px;
+      box-shadow: var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .station-card:hover { transform: translateY(-2px); box-shadow: 0 11px 29px rgba(20, 77, 107, .12); }
+    .station-card:active { transform: translateY(1px); }
+
+    .station-image-slot {
+      position: relative;
+      width: 100%;
+      height: 108px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .station-image-slot::before {
+      content: "";
+      width: 61px;
+      height: 61px;
+      background: color-mix(in srgb, var(--station) 8%, white);
+      border-radius: 50% 44% 52% 47%;
+      transform: rotate(-8deg);
+    }
+
+    .station-image-slot::after {
+      content: "";
+      position: absolute;
+      width: 34px;
+      height: 25px;
+      border: 1.5px dashed color-mix(in srgb, var(--station) 23%, transparent);
+      border-radius: 8px;
+    }
+
+    .station-image-slot:has(img.is-loaded)::before,
+    .station-image-slot:has(img.is-loaded)::after { display: none; }
+
+    .station-illustration {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      opacity: 0;
+    }
+
+    .station-illustration.is-loaded { opacity: 1; }
+
+    .station-copy { min-width: 0; padding: 0 4px 0 8px; }
+
+    .station-kicker {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--station);
+      font-size: clamp(13px, 3.5vw, 15px);
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .station-title {
+      display: block;
+      color: var(--ink);
+      font-size: clamp(16px, 4.25vw, 19px);
+      font-weight: 800;
+      letter-spacing: -.015em;
+      line-height: 1.08;
+      text-wrap: balance;
+    }
+
+    .station-chevron {
+      width: 30px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      color: var(--station);
+    }
+
+    .station-chevron svg { width: 23px; height: 23px; }
+
+    .continue-route {
+      position: relative;
+      z-index: 1;
+      min-height: 110px;
+      padding: 27px 0 0 57px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 8px;
+      color: var(--blue);
+      font-size: 16px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .continue-route svg { width: 23px; height: 23px; flex: 0 0 auto; }
+
+    .bottom-nav {
+      position: fixed;
+      z-index: 20;
+      bottom: 0;
+      left: 50%;
+      width: min(100%, 460px);
+      height: calc(88px + var(--safe-bottom));
+      padding: 10px 14px var(--safe-bottom);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: rgba(255, 255, 255, .96);
+      border-top: 1px solid rgba(20, 78, 108, .07);
+      box-shadow: 0 -7px 22px rgba(21, 72, 97, .045);
+      transform: translateX(-50%);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-item {
+      position: relative;
+      min-width: 0;
+      min-height: 64px;
+      padding: 7px 2px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: #859198;
+      text-decoration: none;
+      border-radius: 15px;
+      font-size: 11px;
+      font-weight: 800;
+      transition: color .18s ease, background-color .18s ease;
+    }
+
+    .nav-item:hover { background: rgba(234, 247, 252, .72); }
+    .nav-item svg { width: 23px; height: 23px; }
+    .nav-item.is-active { color: var(--blue-button); }
+
+    .nav-item.is-active::after {
+      content: "";
+      position: absolute;
+      bottom: 3px;
+      left: 50%;
+      width: 25px;
+      height: 3px;
+      background: var(--blue-button);
+      border-radius: 999px;
+      transform: translateX(-50%);
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(22, 140, 203, .42);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 389px) {
+      .hero { min-height: 354px; padding-inline: 21px; }
+      .hero-visual { right: -34px; width: 226px; }
+      .hero-tagline { width: 245px; }
+      .primary-cta { width: calc(100% - 42px); margin-inline: 21px; padding-left: 24px; }
+      .journey { padding-inline: 17px; }
+      .journey-path { left: 23px; }
+      .station { grid-template-columns: 63px minmax(0, 1fr); }
+      .station-card { grid-template-columns: 76px minmax(0, 1fr) 27px; padding-left: 9px; }
+      .station-copy { padding-left: 4px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <h1 id="page-title">Ruta<br>Participativa</h1>
+          <p class="hero-tagline">De salto en salto a la<br>violencia ponemos alto</p>
+          <p class="hero-intro">Prepara tu réplica<br>paso a paso.</p>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-blob"></div>
+          <span class="cloud"></span>
+          <span class="cloud cloud-small"></span>
+          <svg class="hero-route" viewBox="0 0 250 268" fill="none">
+            <path d="M22 228C70 206 39 164 98 153c63-12 38-66 93-82" stroke="#168CCB" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 9" opacity=".65"/>
+            <circle cx="22" cy="228" r="5" fill="#168CCB" opacity=".75"/>
+            <path d="M191 71V34m2 3h31l-7 10 7 10h-31" stroke="#168CCB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="hero-image-slot">
+            <!-- Ilustración principal Ruta Participativa -->
+            <!-- Ilustración integrada desde: assets/images/hero-ruta.png -->
+            <img src="assets/images/hero-ruta.png" alt="Niñas y niños recorriendo la Ruta Participativa" onload="this.classList.add('is-loaded')" onerror="this.removeAttribute('src')">
+          </div>
+        </div>
+      </section>
+
+      <button class="primary-cta" type="button" data-scroll-to="estacion-1" aria-controls="journey" aria-expanded="false">
+        <span>Comenzar la ruta</span>
+        <span class="cta-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h13M13 6l6 6-6 6"/>
+          </svg>
+        </span>
+      </button>
+
+      <section class="journey" id="journey" aria-label="Recorrido de estaciones" hidden>
+        <svg class="journey-path" viewBox="0 0 75 905" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M42 0C72 51 70 112 43 144S12 239 43 294s31 93 1 145-33 100-1 151 31 100 0 151-23 105 5 164" fill="none" stroke="#168CCB" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 10" opacity=".76"/>
+        </svg>
+
+        <ol class="journey-list">
+          <li class="station" id="estacion-1">
+            <div class="station-marker" aria-hidden="true"><span class="station-number">1</span><span class="station-node"></span></div>
+            <a class="station-card" href="#" aria-label="Estación 1: Niñas y niños somos igualmente capaces">
+              <span class="station-image-slot">
+                <!-- Ilustración integrada desde: assets/images/estacion-1.png -->
+                <img class="station-illustration" src="assets/images/estacion-1.png" alt="" onload="this.classList.add('is-loaded')" onerror="this.removeAttribute('src')">
+              </span>
+              <span class="station-copy"><span class="station-kicker">Estación 1</span><span class="station-title">Niñas y niños<br>somos igualmente<br>capaces</span></span>
+              <span class="station-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+          </li>
+
+          <li class="station" id="estacion-2">
+            <div class="station-marker" aria-hidden="true"><span class="station-number">2</span><span class="station-node"></span></div>
+            <a class="station-card" href="#" aria-label="Estación 2: La violencia nos daña">
+              <span class="station-image-slot">
+                <!-- Ilustración integrada desde: assets/images/estacion-2.png -->
+                <img class="station-illustration" src="assets/images/estacion-2.png" alt="" onload="this.classList.add('is-loaded')" onerror="this.removeAttribute('src')">
+              </span>
+              <span class="station-copy"><span class="station-kicker">Estación 2</span><span class="station-title">La violencia<br>nos daña</span></span>
+              <span class="station-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+          </li>
+
+          <li class="station" id="estacion-3">
+            <div class="station-marker" aria-hidden="true"><span class="station-number">3</span><span class="station-node"></span></div>
+            <a class="station-card" href="#" aria-label="Estación 3: Niñas y niños somos valiosas y valiosos">
+              <span class="station-image-slot">
+                <!-- Ilustración integrada desde: assets/images/estacion-3.png -->
+                <img class="station-illustration" src="assets/images/estacion-3.png" alt="" onload="this.classList.add('is-loaded')" onerror="this.removeAttribute('src')">
+              </span>
+              <span class="station-copy"><span class="station-kicker">Estación 3</span><span class="station-title">Niñas y niños<br>somos valiosas<br>y valiosos</span></span>
+              <span class="station-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+          </li>
+
+          <li class="station" id="estacion-4">
+            <div class="station-marker" aria-hidden="true"><span class="station-number">4</span><span class="station-node"></span></div>
+            <a class="station-card" href="#" aria-label="Estación 4: Unidas y unidos frente a la violencia de género">
+              <span class="station-image-slot">
+                <!-- Ilustración integrada desde: assets/images/estacion-4.png -->
+                <img class="station-illustration" src="assets/images/estacion-4.png" alt="" onload="this.classList.add('is-loaded')" onerror="this.removeAttribute('src')">
+              </span>
+              <span class="station-copy"><span class="station-kicker">Estación 4</span><span class="station-title">Unidas y unidos<br>frente a la violencia<br>de género</span></span>
+              <span class="station-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+          </li>
+
+          <li class="station" id="estacion-5">
+            <div class="station-marker" aria-hidden="true"><span class="station-number">5</span><span class="station-node"></span></div>
+            <a class="station-card" href="#" aria-label="Estación 5: ¡Alza tu voz!">
+              <span class="station-image-slot">
+                <!-- Ilustración integrada desde: assets/images/estacion-5.png -->
+                <img class="station-illustration" src="assets/images/estacion-5.png" alt="" onload="this.classList.add('is-loaded')" onerror="this.removeAttribute('src')">
+              </span>
+              <span class="station-copy"><span class="station-kicker">Estación 5</span><span class="station-title">¡Alza tu voz!</span></span>
+              <span class="station-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+          </li>
+        </ol>
+
+        <div class="continue-route">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span>Continúa el recorrido…</span>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <a class="nav-item is-active" href="#page-title" aria-current="page" data-show-home>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 9-8 9 8"/><path d="M5.5 9.5V21h13V9.5M9.5 21v-7h5v7"/></svg>
+        <span>Inicio</span>
+      </a>
+      <a class="nav-item" href="#estacion-1" data-show-journey>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="5" r="2"/><circle cx="18" cy="19" r="2"/><path d="M6 7v3c0 1.7 1.3 3 3 3h6c1.7 0 3 1.3 3 3v1"/><path d="m15 4 3-2 3 2v5h-6Z"/></svg>
+        <span>Estaciones</span>
+      </a>
+      <a class="nav-item" href="#" data-demo-link>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2M3 12h18M10 12v2h4v-2"/></svg>
+        <span>Mi Kit</span>
+      </a>
+      <a class="nav-item" href="#" data-demo-link>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5h8l4 4V21.5H6Z"/><path d="M14 2.5v5h4M9 12h6M9 16h6"/></svg>
+        <span>Materiales</span>
+      </a>
+    </nav>
+  </div>
+
+  <script>
+    const journey = document.querySelector('.journey');
+    const startButton = document.querySelector('[data-scroll-to]');
+    const homeNav = document.querySelector('[data-show-home]');
+    const stationsNav = document.querySelector('[data-show-journey]');
+
+    function setActiveNav(activeItem) {
+      [homeNav, stationsNav].forEach(function (item) {
+        item.classList.remove('is-active');
+        item.removeAttribute('aria-current');
+      });
+      activeItem.classList.add('is-active');
+      activeItem.setAttribute('aria-current', 'page');
+    }
+
+    function showJourney(targetId = 'estacion-1') {
+      startButton.hidden = true;
+      startButton.setAttribute('aria-expanded', 'true');
+      setActiveNav(stationsNav);
+
+      if (journey.hidden) {
+        journey.hidden = false;
+        journey.classList.add('is-revealed');
+      }
+
+      window.requestAnimationFrame(function () {
+        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
+
+    function showHome() {
+      journey.hidden = true;
+      journey.classList.remove('is-revealed');
+      startButton.hidden = false;
+      startButton.setAttribute('aria-expanded', 'false');
+      setActiveNav(homeNav);
+
+      window.requestAnimationFrame(function () {
+        document.getElementById('page-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    startButton.addEventListener('click', function () {
+      showJourney(this.dataset.scrollTo);
+    });
+
+    stationsNav.addEventListener('click', function (event) {
+      event.preventDefault();
+      showJourney('estacion-1');
+    });
+
+    homeNav.addEventListener('click', function (event) {
+      event.preventDefault();
+      showHome();
+    });
+
+    document.querySelectorAll('.station-card[href="#"], [data-demo-link]').forEach(function (link) {
+      link.addEventListener('click', function (event) { event.preventDefault(); });
+    });
+  </script>
+</body>
+</html>
