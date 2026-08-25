@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Ruta Participativa · Estación 5: ¡Alza tu voz!">
+  <title>Estación 5 · Ruta Participativa</title>
+
+  <style>
+    :root{
+      --blue:#168CCB;
+      --blue-dark:#075B8F;
+      --blue-soft:#EAF7FC;
+
+      --station:#F26A0A;
+      --station-dark:#D65700;
+      --station-soft:#FFF0E4;
+      --station-soft-2:#FFF8F2;
+
+      --ink:#243746;
+      --muted:#68767E;
+      --page:#FBFCFD;
+      --white:#FFFFFF;
+
+      --shadow:0 10px 30px rgba(20,67,90,.10), 0 2px 8px rgba(20,67,90,.045);
+      --safe-bottom:env(safe-area-inset-bottom,0px);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      min-width:320px;
+      background:#EDF3F5;
+      color:var(--ink);
+      font-family:"Nunito","Avenir Next","Segoe UI",system-ui,-apple-system,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    .app{
+      width:100%;
+      max-width:460px;
+      min-height:100vh;
+      margin:0 auto;
+      overflow:hidden;
+      background:var(--page);
+      box-shadow:0 0 44px rgba(20,65,86,.08);
+    }
+
+    main{padding-bottom:calc(106px + var(--safe-bottom))}
+
+    /* CABECERA */
+    .topbar{
+      position:relative;
+      min-height:91px;
+      padding:18px 22px 13px;
+      display:grid;
+      grid-template-columns:48px 1fr 48px;
+      align-items:center;
+      background:rgba(255,255,255,.97);
+      border-bottom:1px solid rgba(18,81,112,.06);
+    }
+
+    .topbar::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:-2px;
+      width:52px;
+      height:4px;
+      border-radius:999px;
+      background:var(--station);
+      transform:translateX(-50%);
+    }
+
+    .back{
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      color:var(--blue-dark);
+      transition:.18s ease;
+    }
+
+    .back:hover{background:var(--blue-soft)}
+    .back svg{width:30px;height:30px}
+
+    .station-meta{text-align:center;line-height:1.05}
+
+    .station-meta strong{
+      display:block;
+      color:var(--ink);
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:-.025em;
+    }
+
+    .station-meta span{
+      display:inline-flex;
+      margin-top:7px;
+      padding:5px 14px;
+      border-radius:999px;
+      background:var(--station-soft);
+      color:var(--station-dark);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    /* CONTENIDO */
+    .content{padding:34px 24px 20px}
+
+    .intro h1{
+      max-width:405px;
+      margin:0;
+      color:var(--station);
+      font-size:clamp(38px,10.5vw,48px);
+      line-height:.98;
+      letter-spacing:-.045em;
+      font-weight:900;
+      text-wrap:balance;
+    }
+
+    .purpose{
+      margin:18px 0 0;
+      color:#334A59;
+      font-size:clamp(18px,4.8vw,20px);
+      line-height:1.37;
+      font-weight:600;
+      letter-spacing:-.01em;
+    }
+
+    /* ESCENA PRINCIPAL */
+    .visual-card{
+      position:relative;
+      margin-top:28px;
+      aspect-ratio:1.46/1;
+      overflow:hidden;
+      border-radius:28px;
+      background:linear-gradient(155deg,#FFF9F4 0%,#FFF0E3 58%,#FCE2CF 100%);
+      box-shadow:0 8px 24px rgba(107,72,45,.09);
+      isolation:isolate;
+    }
+
+    .visual-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border:1px solid rgba(255,255,255,.55);
+      border-radius:inherit;
+      pointer-events:none;
+    }
+
+    .scene{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+    }
+
+    .scene-illustration{display:none}
+
+    .scene-label{
+      position:absolute;
+      z-index:3;
+      top:15px;
+      left:16px;
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,.90);
+      border:1px solid rgba(242,106,10,.15);
+      color:#7B3D15;
+      font-size:11px;
+      font-weight:900;
+      backdrop-filter:blur(5px);
+    }
+
+    .scene-label::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--station);
+    }
+
+    /* VISTA RÁPIDA */
+    .quick{
+      position:relative;
+      margin-top:22px;
+      padding:8px 6px 6px 2px;
+      display:grid;
+      grid-template-columns:58px minmax(0,1fr);
+      gap:14px;
+      align-items:start;
+    }
+
+    .quick-icon{
+      width:58px;
+      height:58px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      color:var(--station-dark);
+      background:var(--station-soft);
+    }
+
+    .quick-icon svg{width:31px;height:31px}
+
+    .quick h2{
+      margin:0;
+      color:var(--station-dark);
+      font-size:23px;
+      line-height:1.05;
+      font-weight:900;
+      letter-spacing:-.025em;
+    }
+
+    .quick p{
+      margin:8px 0 0;
+      color:#475965;
+      font-size:17px;
+      line-height:1.39;
+      font-weight:600;
+    }
+
+    .route-deco{
+      position:absolute;
+      right:-9px;
+      top:7px;
+      width:92px;
+      height:42px;
+      opacity:.50;
+      pointer-events:none;
+    }
+
+    /* ACCIONES */
+    .actions{
+      margin-top:25px;
+      display:grid;
+      gap:14px;
+    }
+
+    .action-card{
+      min-height:112px;
+      padding:15px 17px 15px 15px;
+      display:grid;
+      grid-template-columns:72px minmax(0,1fr) 30px;
+      gap:12px;
+      align-items:center;
+      background:#fff;
+      border:1px solid rgba(17,87,119,.055);
+      border-radius:25px;
+      box-shadow:var(--shadow);
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+
+    .action-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 13px 30px rgba(20,67,90,.12);
+    }
+
+    .action-card:active{transform:translateY(1px)}
+
+    .action-icon{
+      width:68px;
+      height:68px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:var(--station-soft);
+      color:var(--station-dark);
+    }
+
+    .action-card:nth-child(2) .action-icon{
+      color:var(--blue-dark);
+      background:var(--blue-soft);
+    }
+
+    .action-icon svg{width:37px;height:37px}
+
+    .action-copy strong{
+      display:block;
+      margin:0;
+      color:#17364A;
+      font-size:21px;
+      line-height:1.08;
+      font-weight:900;
+      letter-spacing:-.025em;
+    }
+
+    .action-copy span{
+      display:block;
+      margin-top:7px;
+      color:var(--muted);
+      font-size:15.5px;
+      line-height:1.25;
+      font-weight:600;
+    }
+
+    .chevron{
+      display:grid;
+      place-items:center;
+      color:var(--station);
+    }
+
+    .action-card:nth-child(2) .chevron{color:var(--blue)}
+    .chevron svg{width:26px;height:26px}
+
+    /* NAVEGACIÓN */
+    .bottom-nav{
+      position:fixed;
+      z-index:20;
+      left:50%;
+      bottom:0;
+      width:min(100%,460px);
+      height:calc(91px + var(--safe-bottom));
+      padding:8px 18px var(--safe-bottom);
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      background:rgba(255,255,255,.97);
+      border-top:1px solid rgba(20,78,108,.07);
+      box-shadow:0 -7px 22px rgba(21,72,97,.05);
+      transform:translateX(-50%);
+      backdrop-filter:blur(12px);
+    }
+
+    .nav-item{
+      position:relative;
+      min-width:0;
+      min-height:70px;
+      padding:8px 4px 12px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:4px;
+      color:#747F85;
+      border-radius:16px;
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .nav-item:hover{background:#F6FAFB}
+    .nav-item svg{width:27px;height:27px}
+
+    .nav-item.is-active{color:var(--blue)}
+
+    .nav-item.is-active::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:4px;
+      width:30px;
+      height:3px;
+      border-radius:999px;
+      background:var(--station);
+      transform:translateX(-50%);
+    }
+
+    :focus-visible{
+      outline:3px solid rgba(242,106,10,.30);
+      outline-offset:3px;
+    }
+
+    @media(max-width:380px){
+      .content{padding-inline:20px}
+      .topbar{padding-inline:18px}
+      .intro h1{font-size:37px}
+      .purpose{font-size:17px}
+      .action-card{grid-template-columns:64px minmax(0,1fr) 26px}
+      .action-icon{width:62px;height:62px}
+      .action-copy strong{font-size:19px}
+      .action-copy span{font-size:14px}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{transition-duration:.01ms!important}
+    }
+  </style>
+</head>
+
+<body>
+<div class="app">
+  <main>
+
+    <header class="topbar">
+      <a class="back" href="../index.html?view=stations" aria-label="Volver a estaciones">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m14.5 5-7 7 7 7"/>
+        </svg>
+      </a>
+
+      <div class="station-meta">
+        <strong>Estación 5</strong>
+        <span>5 de 5</span>
+      </div>
+
+      <span aria-hidden="true"></span>
+    </header>
+
+    <div class="content">
+
+      <section class="intro">
+        <h1>¡Alza tu voz!</h1>
+        <p class="purpose">
+          Recuperamos lo aprendido durante la ruta y expresamos mensajes
+          de rechazo a la violencia, protección y valoración de las personas.
+        </p>
+      </section>
+
+      <section class="visual-card" aria-label="Referencia visual de la actividad de carteles y marcha">
+        <div class="scene-label">Mensajes y marcha</div>
+
+        <!--
+          Fotografía integrada desde:
+          ../assets/images/estacion-5-aplicacion.png
+
+          La escena busca mostrar:
+          - grupo pequeño, no multitud;
+          - carteles artesanales;
+          - expresión colectiva frente a la violencia;
+          - ambiente escolar;
+          - docente acompañando;
+          - sin estética de protesta política.
+        -->
+
+        <img class="scene" src="../assets/images/estacion-5-aplicacion.png"
+             alt="Niñas y niños realizan una marcha escolar con carteles contra la violencia mientras una docente acompaña">
+
+        <svg class="scene scene-illustration" viewBox="0 0 860 590" role="img"
+             aria-label="Niñas y niños realizan una pequeña marcha escolar con carteles hechos a mano y una docente acompaña">
+          <defs>
+            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#FFF9F3"/>
+              <stop offset="1" stop-color="#FCE7D7"/>
+            </linearGradient>
+
+            <linearGradient id="shirtBlue" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#58A9CF"/>
+              <stop offset="1" stop-color="#2F85AF"/>
+            </linearGradient>
+
+            <linearGradient id="shirtPink" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#E7A2B7"/>
+              <stop offset="1" stop-color="#CC6C89"/>
+            </linearGradient>
+
+            <filter id="softShadow" x="-20%" y="-20%" width="140%" height="160%">
+              <feDropShadow dx="0" dy="10" stdDeviation="10"
+                            flood-color="#6E4E39" flood-opacity=".13"/>
+            </filter>
+          </defs>
+
+          <rect width="860" height="590" fill="url(#bg)"/>
+
+          <!-- patio escolar -->
+          <rect y="400" width="860" height="190" fill="#EEDFD2"/>
+          <rect x="56" y="77" width="748" height="239" rx="24" fill="#FFFDFC" opacity=".92"/>
+          <rect x="88" y="103" width="170" height="105" rx="13" fill="#DFF0F6"/>
+          <rect x="282" y="103" width="170" height="105" rx="13" fill="#E9F4E5"/>
+          <rect x="476" y="103" width="170" height="105" rx="13" fill="#FFF0D9"/>
+          <path d="M88 229h558" stroke="#D7C7B9" stroke-width="9" stroke-linecap="round" opacity=".55"/>
+          <path d="M142 400v-64M715 400v-64" stroke="#A77758" stroke-width="10" stroke-linecap="round"/>
+
+          <!-- docente al fondo -->
+          <g transform="translate(646 210)" opacity=".95">
+            <circle cx="61" cy="50" r="34" fill="#B97752"/>
+            <path d="M31 46c4-34 22-51 52-40 21 8 22 32 10 47-14-14-36-19-62-7Z" fill="#263E48"/>
+            <path d="M58 86c35 0 58 22 65 68l10 101H4l12-103c5-45 15-66 42-66Z" fill="#173E59"/>
+            <path d="M54 88h24l9 66H43Z" fill="#F9F5EF"/>
+            <path d="M18 129c-17 20-26 40-29 70" stroke="#B97752" stroke-width="17" stroke-linecap="round"/>
+            <path d="M108 126c21 13 31 32 39 57" stroke="#B97752" stroke-width="17" stroke-linecap="round"/>
+          </g>
+
+          <!-- niña -->
+          <g transform="translate(125 242)" filter="url(#softShadow)">
+            <ellipse cx="122" cy="292" rx="94" ry="19" fill="#BFA691" opacity=".22"/>
+            <circle cx="98" cy="61" r="42" fill="#C7865D"/>
+            <path d="M60 52c4-38 28-57 64-43 21 8 26 30 20 50-22-14-52-17-84-7Z" fill="#332927"/>
+            <circle cx="131" cy="20" r="21" fill="#332927"/>
+            <path d="M77 105c36-8 78 12 90 56l17 80H42l8-77c5-42 10-54 27-59Z" fill="url(#shirtPink)"/>
+            <path d="M64 240l-8 76M144 240l13 76" stroke="#4E87A2" stroke-width="28" stroke-linecap="round"/>
+            <path d="M47 315h39M144 315h37" stroke="#D95663" stroke-width="19" stroke-linecap="round"/>
+            <path d="M55 147c-17-25-23-53-21-81" stroke="#C7865D" stroke-width="19" stroke-linecap="round"/>
+            <path d="M157 147c17-31 23-60 20-88" stroke="#C7865D" stroke-width="19" stroke-linecap="round"/>
+
+            <!-- cartel artesanal -->
+            <g transform="translate(-3 -58) rotate(-3)">
+              <rect x="20" y="0" width="170" height="104" rx="5" fill="#FFF8E8" stroke="#B99863" stroke-width="5"/>
+              <path d="M25 9l18-6M170 5l15 7M31 96l13 5M174 96l10-4" stroke="#D2BA91" stroke-width="4" stroke-linecap="round"/>
+              <text x="105" y="46" text-anchor="middle"
+                    font-family="Nunito, Arial, sans-serif" font-size="24"
+                    font-weight="900" fill="#F26A0A">NO A LA</text>
+              <text x="105" y="76" text-anchor="middle"
+                    font-family="Nunito, Arial, sans-serif" font-size="23"
+                    font-weight="900" fill="#075B8F">VIOLENCIA</text>
+              <circle cx="31" cy="25" r="7" fill="#F4C542"/>
+              <circle cx="177" cy="78" r="6" fill="#67B84F"/>
+            </g>
+          </g>
+
+          <!-- niño -->
+          <g transform="translate(365 255)" filter="url(#softShadow)">
+            <ellipse cx="122" cy="278" rx="94" ry="18" fill="#BFA691" opacity=".22"/>
+            <circle cx="95" cy="56" r="41" fill="#B97852"/>
+            <path d="M58 49c6-35 26-54 61-43 24 8 30 31 22 52-23-13-50-18-83-9Z" fill="#283A42"/>
+            <path d="M74 98c38-7 79 14 89 57l17 78H38l9-77c5-38 12-52 27-58Z" fill="url(#shirtBlue)"/>
+            <path d="M61 231l-8 78M139 231l13 78" stroke="#536D7B" stroke-width="29" stroke-linecap="round"/>
+            <path d="M45 307h42M140 307h38" stroke="#5A7AB1" stroke-width="20" stroke-linecap="round"/>
+
+            <!-- brazo levantado -->
+            <path d="M52 142c-25-22-36-48-42-77" stroke="#B97852" stroke-width="19" stroke-linecap="round"/>
+            <path d="M150 144c25-20 43-43 53-70" stroke="#B97852" stroke-width="19" stroke-linecap="round"/>
+
+            <!-- megáfono artesanal pequeño -->
+            <g transform="translate(160 37) rotate(-15)">
+              <path d="M0 27h35l53-24v63L35 44H0Z" fill="#FFF9EF" stroke="#D65E10" stroke-width="5" stroke-linejoin="round"/>
+              <path d="M10 44v32h21V44" fill="#F4C542" stroke="#B98A10" stroke-width="5"/>
+              <path d="M94 18c18 9 19 34 1 44" fill="none" stroke="#F26A0A" stroke-width="5" stroke-linecap="round"/>
+            </g>
+          </g>
+
+          <!-- niño/a pequeño al fondo con cartel -->
+          <g transform="translate(80 293)" opacity=".73">
+            <circle cx="23" cy="62" r="24" fill="#A86F51"/>
+            <path d="M4 89c26-12 56 1 66 36l10 63H-8l5-61c3-25 2-32 7-38Z" fill="#67B84F"/>
+            <rect x="-5" y="5" width="93" height="51" rx="4" fill="#FFFDF5" stroke="#A98F69" stroke-width="4" transform="rotate(4 40 30)"/>
+            <path d="M15 29h54" stroke="#E97AAE" stroke-width="7" stroke-linecap="round" transform="rotate(4 40 30)"/>
+          </g>
+
+          <!-- pequeñas huellas/ruta -->
+          <path d="M151 539c49-25 99-20 147-2 44 17 86 12 129-8"
+                fill="none" stroke="#F26A0A" stroke-width="4"
+                stroke-linecap="round" stroke-dasharray="5 12" opacity=".36"/>
+          <circle cx="148" cy="540" r="7" fill="#F26A0A" opacity=".46"/>
+          <circle cx="430" cy="528" r="7" fill="#168CCB" opacity=".42"/>
+        </svg>
+      </section>
+
+      <section class="quick" aria-labelledby="quick-title">
+        <div class="quick-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2.5 12s3.6-6 9.5-6 9.5 6 9.5 6-3.6 6-9.5 6-9.5-6-9.5-6Z"/>
+            <circle cx="12" cy="12" r="2.7"/>
+          </svg>
+        </div>
+
+        <div>
+          <h2 id="quick-title">Vista rápida</h2>
+          <p>
+            Elabora mensajes y carteles, recupera los aprendizajes de la ruta
+            y realiza una pequeña marcha para alzar la voz frente a la violencia.
+          </p>
+        </div>
+
+        <svg class="route-deco" viewBox="0 0 100 50" aria-hidden="true">
+          <path d="M4 15c21 25 37-11 56 10 14 15 24 3 35-8"
+                fill="none" stroke="#F26A0A" stroke-width="3"
+                stroke-linecap="round" stroke-dasharray="5 9"/>
+          <circle cx="4" cy="15" r="4" fill="#F26A0A"/>
+        </svg>
+      </section>
+
+      <section class="actions" aria-label="Accesos de la estación">
+
+        <a class="action-card" href="#" data-demo-link aria-label="Qué preparo">
+          <span class="action-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="10" width="28" height="22" rx="3"/>
+              <path d="M13 17h18M13 23h13"/>
+              <path d="M20 32v7M30 32v7"/>
+              <path d="M17 39h16"/>
+              <path d="m37 13 5-4M39 20h6M37 27l5 4"/>
+            </svg>
+          </span>
+
+          <span class="action-copy">
+            <strong>¿Qué preparo?</strong>
+            <span>Carteles y materiales para crear mensajes</span>
+          </span>
+
+          <span class="chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 5 7 7-7 7"/>
+            </svg>
+          </span>
+        </a>
+
+        <a class="action-card" href="#" data-demo-link aria-label="Cómo se realiza">
+          <span class="action-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="24" cy="20" r="12"/>
+              <path d="m21 14 9 6-9 6z" fill="currentColor" stroke="none"/>
+              <path d="M10 39h28"/>
+              <circle cx="14" cy="39" r="3" fill="currentColor" stroke="none"/>
+              <circle cx="34" cy="39" r="3" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+
+          <span class="action-copy">
+            <strong>¿Cómo se realiza?</strong>
+            <span>Ver paso a paso</span>
+          </span>
+
+          <span class="chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 5 7 7-7 7"/>
+            </svg>
+          </span>
+        </a>
+
+      </section>
+    </div>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <a class="nav-item" href="../index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m3 11 9-8 9 8"/>
+        <path d="M5.5 9.5V21h13V9.5M9.5 21v-7h5v7"/>
+      </svg>
+      <span>Inicio</span>
+    </a>
+
+    <a class="nav-item is-active" href="../index.html?view=stations" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="6" cy="5" r="2"/>
+        <circle cx="18" cy="19" r="2"/>
+        <path d="M6 7v3c0 1.7 1.3 3 3 3h6c1.7 0 3 1.3 3 3v1"/>
+        <path d="m15 4 3-2 3 2v5h-6Z"/>
+      </svg>
+      <span>Estaciones</span>
+    </a>
+
+    <a class="nav-item" href="#" data-demo-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="7" width="18" height="13" rx="2"/>
+        <path d="M8 7V5c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2M3 12h18M10 12v2h4v-2"/>
+      </svg>
+      <span>Mi Kit</span>
+    </a>
+  </nav>
+</div>
+
+<script>
+  document.querySelectorAll('[data-demo-link]').forEach(function(link){
+    link.addEventListener('click', function(event){
+      event.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>

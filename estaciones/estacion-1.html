@@ -153,22 +153,6 @@ main {
   margin-bottom:20px;
 }
 
-.intro::before {
-  content:"1";
-  float:left;
-  width:50px;
-  height:50px;
-  margin:1px 13px 7px 0;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  background:var(--yellow);
-  color:white;
-  font-size:22px;
-  font-weight:900;
-  box-shadow:0 6px 16px rgba(229,169,0,.17);
-}
-
 .intro h1 {
   margin:0 0 11px;
   color:var(--blue-dark);
@@ -179,7 +163,6 @@ main {
 }
 
 .purpose {
-  clear:both;
   margin:0;
   max-width:405px;
   color:var(--ink);
@@ -224,36 +207,12 @@ main {
 
 .quick {
   position:relative;
-  margin:23px 0 23px;
+  margin:18px 0 23px;
   padding:0 3px;
 }
 
-.quick-label {
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  color:var(--blue-dark);
-  font-size:18px;
-  font-weight:900;
-}
-
-.eye {
-  width:39px;
-  height:39px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:var(--yellow-pale);
-  color:var(--blue);
-}
-
-.eye svg {
-  width:23px;
-  height:23px;
-}
-
 .quick p {
-  margin:8px 105px 0 0;
+  margin:0 105px 0 0;
   font-size:16px;
   line-height:1.46;
   color:var(--ink);
@@ -420,13 +379,6 @@ main {
     padding-inline:16px;
   }
 
-  .intro::before {
-    width:45px;
-    height:45px;
-    margin-right:11px;
-    font-size:20px;
-  }
-
   .intro h1 {
     font-size:28px;
   }
@@ -515,16 +467,6 @@ main {
       </section>
 
       <section class="quick">
-        <div class="quick-label">
-          <span class="eye" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M2.5 12s3.3-5.5 9.5-5.5S21.5 12 21.5 12 18.2 17.5 12 17.5 2.5 12 2.5 12Z"/>
-              <circle cx="12" cy="12" r="2.7"/>
-            </svg>
-          </span>
-          <span>Vista rápida</span>
-        </div>
-
         <p>
           Recorre el camino, lanza el dado y conversa sobre quién puede realizar distintas tareas.
         </p>

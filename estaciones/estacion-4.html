@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Ruta Participativa · Estación 4: Unidas y unidos frente a la violencia de género.">
+  <title>Estación 4 · Ruta Participativa</title>
+
+  <style>
+    :root{
+      --blue:#168CCB;
+      --blue-dark:#075B8F;
+      --blue-soft:#EAF7FC;
+
+      --station:#F28A3B;
+      --station-dark:#D96D1F;
+      --station-soft:#FFF0E4;
+      --station-soft-2:#FFF8F2;
+
+      --ink:#243746;
+      --muted:#68767E;
+      --page:#FBFCFD;
+      --white:#FFFFFF;
+
+      --shadow:0 10px 30px rgba(20,67,90,.10), 0 2px 8px rgba(20,67,90,.045);
+      --safe-bottom:env(safe-area-inset-bottom,0px);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-width:320px;
+      background:#EDF3F5;
+      color:var(--ink);
+      font-family:"Nunito","Avenir Next","Segoe UI",system-ui,-apple-system,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    .app{
+      width:100%;
+      max-width:460px;
+      min-height:100vh;
+      margin:0 auto;
+      overflow:hidden;
+      background:var(--page);
+      box-shadow:0 0 44px rgba(20,65,86,.08);
+    }
+
+    main{padding-bottom:calc(106px + var(--safe-bottom))}
+
+    /* CABECERA LIGERA */
+    .topbar{
+      position:relative;
+      min-height:91px;
+      padding:18px 22px 13px;
+      display:grid;
+      grid-template-columns:48px 1fr 48px;
+      align-items:center;
+      background:rgba(255,255,255,.97);
+      border-bottom:1px solid rgba(18,81,112,.06);
+    }
+
+    .topbar::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:-2px;
+      width:52px;
+      height:4px;
+      border-radius:999px;
+      background:var(--station);
+      transform:translateX(-50%);
+    }
+
+    .back{
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      color:var(--blue-dark);
+      transition:.18s ease;
+    }
+
+    .back:hover{background:var(--blue-soft)}
+    .back svg{width:30px;height:30px}
+
+    .station-meta{text-align:center;line-height:1.05}
+    .station-meta strong{
+      display:block;
+      color:var(--ink);
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:-.025em;
+    }
+
+    .station-meta span{
+      display:inline-flex;
+      margin-top:7px;
+      padding:5px 14px;
+      border-radius:999px;
+      background:var(--station-soft);
+      color:var(--station-dark);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    /* CONTENIDO */
+    .content{padding:34px 24px 20px}
+
+    .intro h1{
+      max-width:405px;
+      margin:0;
+      color:var(--station);
+      font-size:clamp(33px,8.8vw,42px);
+      line-height:1.01;
+      letter-spacing:-.042em;
+      font-weight:900;
+      text-wrap:balance;
+    }
+
+    .purpose{
+      margin:18px 0 0;
+      color:#334A59;
+      font-size:clamp(18px,4.8vw,20px);
+      line-height:1.37;
+      font-weight:600;
+      letter-spacing:-.01em;
+    }
+
+    /* ESCENA PRINCIPAL */
+    .visual-card{
+      position:relative;
+      margin-top:28px;
+      aspect-ratio:1.46/1;
+      overflow:hidden;
+      border-radius:28px;
+      background:linear-gradient(155deg,#FFF9F4 0%,#FFF1E7 58%,#FBE8D9 100%);
+      box-shadow:0 8px 24px rgba(107,72,45,.09);
+      isolation:isolate;
+    }
+
+    .visual-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border:1px solid rgba(255,255,255,.55);
+      border-radius:inherit;
+      pointer-events:none;
+    }
+
+    .scene{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+    }
+
+    .scene-illustration{display:none}
+
+    .scene-label{
+      position:absolute;
+      z-index:3;
+      top:15px;
+      left:16px;
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,.90);
+      border:1px solid rgba(242,138,59,.15);
+      color:#7B4A26;
+      font-size:11px;
+      font-weight:900;
+      backdrop-filter:blur(5px);
+    }
+
+    .scene-label::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--station);
+    }
+
+    /* VISTA RÁPIDA */
+    .quick{
+      position:relative;
+      margin-top:22px;
+      padding:8px 6px 6px 2px;
+      display:grid;
+      grid-template-columns:58px minmax(0,1fr);
+      gap:14px;
+      align-items:start;
+    }
+
+    .quick-icon{
+      width:58px;
+      height:58px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      color:var(--station-dark);
+      background:var(--station-soft);
+    }
+
+    .quick-icon svg{width:31px;height:31px}
+
+    .quick h2{
+      margin:0;
+      color:var(--station-dark);
+      font-size:23px;
+      line-height:1.05;
+      font-weight:900;
+      letter-spacing:-.025em;
+    }
+
+    .quick p{
+      margin:8px 0 0;
+      color:#475965;
+      font-size:17px;
+      line-height:1.39;
+      font-weight:600;
+    }
+
+    .route-deco{
+      position:absolute;
+      right:-9px;
+      top:7px;
+      width:92px;
+      height:42px;
+      opacity:.5;
+      pointer-events:none;
+    }
+
+    /* ACCIONES */
+    .actions{
+      margin-top:25px;
+      display:grid;
+      gap:14px;
+    }
+
+    .action-card{
+      min-height:112px;
+      padding:15px 17px 15px 15px;
+      display:grid;
+      grid-template-columns:72px minmax(0,1fr) 30px;
+      gap:12px;
+      align-items:center;
+      background:#fff;
+      border:1px solid rgba(17,87,119,.055);
+      border-radius:25px;
+      box-shadow:var(--shadow);
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+
+    .action-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 13px 30px rgba(20,67,90,.12);
+    }
+
+    .action-card:active{transform:translateY(1px)}
+
+    .action-icon{
+      width:68px;
+      height:68px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:var(--station-soft);
+      color:var(--station-dark);
+    }
+
+    .action-card:nth-child(2) .action-icon{
+      color:var(--blue-dark);
+      background:var(--blue-soft);
+    }
+
+    .action-icon svg{width:37px;height:37px}
+
+    .action-copy strong{
+      display:block;
+      margin:0;
+      color:#17364A;
+      font-size:21px;
+      line-height:1.08;
+      font-weight:900;
+      letter-spacing:-.025em;
+    }
+
+    .action-copy span{
+      display:block;
+      margin-top:7px;
+      color:var(--muted);
+      font-size:15.5px;
+      line-height:1.25;
+      font-weight:600;
+    }
+
+    .chevron{
+      display:grid;
+      place-items:center;
+      color:var(--station);
+    }
+
+    .action-card:nth-child(2) .chevron{color:var(--blue)}
+    .chevron svg{width:26px;height:26px}
+
+    /* NAVEGACIÓN */
+    .bottom-nav{
+      position:fixed;
+      z-index:20;
+      left:50%;
+      bottom:0;
+      width:min(100%,460px);
+      height:calc(91px + var(--safe-bottom));
+      padding:8px 18px var(--safe-bottom);
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      background:rgba(255,255,255,.97);
+      border-top:1px solid rgba(20,78,108,.07);
+      box-shadow:0 -7px 22px rgba(21,72,97,.05);
+      transform:translateX(-50%);
+      backdrop-filter:blur(12px);
+    }
+
+    .nav-item{
+      position:relative;
+      min-width:0;
+      min-height:70px;
+      padding:8px 4px 12px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:4px;
+      color:#747F85;
+      border-radius:16px;
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .nav-item:hover{background:#F6FAFB}
+    .nav-item svg{width:27px;height:27px}
+
+    .nav-item.is-active{color:var(--blue)}
+
+    .nav-item.is-active::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:4px;
+      width:30px;
+      height:3px;
+      border-radius:999px;
+      background:var(--station);
+      transform:translateX(-50%);
+    }
+
+    :focus-visible{
+      outline:3px solid rgba(242,138,59,.32);
+      outline-offset:3px;
+    }
+
+    @media(max-width:380px){
+      .content{padding-inline:20px}
+      .topbar{padding-inline:18px}
+      .intro h1{font-size:32px}
+      .purpose{font-size:17px}
+      .action-card{grid-template-columns:64px minmax(0,1fr) 26px}
+      .action-icon{width:62px;height:62px}
+      .action-copy strong{font-size:19px}
+      .action-copy span{font-size:14px}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{transition-duration:.01ms!important}
+    }
+  </style>
+</head>
+
+<body>
+<div class="app">
+  <main>
+
+    <header class="topbar">
+      <a class="back" href="../index.html?view=stations" aria-label="Volver a estaciones">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m14.5 5-7 7 7 7"/>
+        </svg>
+      </a>
+
+      <div class="station-meta">
+        <strong>Estación 4</strong>
+        <span>4 de 5</span>
+      </div>
+
+      <span aria-hidden="true"></span>
+    </header>
+
+    <div class="content">
+
+      <section class="intro">
+        <h1>Unidas y unidos frente a la violencia de género</h1>
+        <p class="purpose">
+          Aprendemos que frente a la violencia podemos buscar apoyo,
+          pedir ayuda y unirnos para encontrar alternativas de protección.
+        </p>
+      </section>
+
+      <section class="visual-card" aria-label="Referencia visual de la dramatización con títeres">
+        <div class="scene-label">Dramatización con títeres</div>
+
+        <!--
+          Fotografía integrada desde:
+          ../assets/images/estacion-4-aplicacion.png
+
+          La escena representa la herramienta de dramatización y diálogo.
+          No muestra violencia directa.
+        -->
+
+        <img class="scene" src="../assets/images/estacion-4-aplicacion.png"
+             alt="Docente realiza una dramatización con títeres mientras niñas y niños participan">
+
+        <svg class="scene scene-illustration" viewBox="0 0 860 590" role="img"
+             aria-label="Dos títeres artesanales de calcetín dialogan mientras una docente facilita la actividad con niñas y niños">
+          <defs>
+            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#FFF9F4"/>
+              <stop offset="1" stop-color="#FCE8D8"/>
+            </linearGradient>
+
+            <linearGradient id="cloth1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#7FB8D2"/>
+              <stop offset="1" stop-color="#4E91B3"/>
+            </linearGradient>
+
+            <linearGradient id="cloth2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#E9A3B9"/>
+              <stop offset="1" stop-color="#CF718F"/>
+            </linearGradient>
+
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+              <feDropShadow dx="0" dy="10" stdDeviation="10"
+                            flood-color="#74503B" flood-opacity=".14"/>
+            </filter>
+          </defs>
+
+          <rect width="860" height="590" fill="url(#bg)"/>
+
+          <!-- aula suave -->
+          <rect x="62" y="92" width="246" height="170" rx="18" fill="#FFFDFB" opacity=".96"/>
+          <path d="M88 129h144M88 159h176M88 189h119"
+                stroke="#D8C9BD" stroke-width="11" stroke-linecap="round" opacity=".52"/>
+          <circle cx="270" cy="128" r="13" fill="#F4C542" opacity=".78"/>
+          <circle cx="248" cy="165" r="10" fill="#67B84F" opacity=".68"/>
+
+          <!-- docente -->
+          <g transform="translate(572 115)">
+            <ellipse cx="110" cy="339" rx="103" ry="24" fill="#C8B6A9" opacity=".22"/>
+            <circle cx="82" cy="79" r="48" fill="#B97854"/>
+            <path d="M39 69c5-47 31-72 74-57 31 11 31 43 14 66-18-21-49-29-88-9Z" fill="#293E47"/>
+            <path d="M76 124c52 0 83 30 96 92l18 119H27l13-122c7-58 16-82 36-89Z" fill="#173E59"/>
+            <path d="M72 126h33l11 87H59Z" fill="#F7F4EE"/>
+            <circle cx="65" cy="80" r="4" fill="#253840"/>
+            <circle cx="96" cy="80" r="4" fill="#253840"/>
+            <path d="M69 100c12 8 25 8 35-1" fill="none" stroke="#70412E" stroke-width="4" stroke-linecap="round"/>
+            <path d="M47 171c-23 21-36 49-46 84" stroke="#B97854" stroke-width="22" stroke-linecap="round"/>
+            <path d="M150 169c22 16 39 42 53 73" stroke="#B97854" stroke-width="22" stroke-linecap="round"/>
+          </g>
+
+          <!-- pequeña mesa / zona teatral -->
+          <g filter="url(#shadow)">
+            <rect x="155" y="361" width="480" height="84" rx="20" fill="#FFFDFC"/>
+            <rect x="174" y="379" width="442" height="47" rx="14" fill="#F5E6D9"/>
+            <path d="M203 444v63M585 444v63" stroke="#B88E6E" stroke-width="18" stroke-linecap="round"/>
+          </g>
+
+          <!-- títere 1 -->
+          <g transform="translate(180 180) rotate(-4)">
+            <!-- mano -->
+            <path d="M80 267c-17 48-11 95 14 131 12 17 40 11 43-10l11-86Z"
+                  fill="#B97854" opacity=".93"/>
+
+            <!-- calcetín -->
+            <path d="M70 78
+                     c2-48 30-73 72-59
+                     33 11 45 43 35 79
+                     l-13 48
+                     c-10 36-15 84-12 138
+                     l-82-2
+                     c8-62 9-118 0-168Z"
+                  fill="url(#cloth1)" stroke="#3F7894" stroke-width="6"/>
+
+            <!-- boca simple -->
+            <path d="M79 109c28 16 58 17 87 1" fill="#F7D7CF" stroke="#315E73" stroke-width="5"/>
+            <path d="M88 112c24 8 46 8 68 0" stroke="#A05654" stroke-width="4" stroke-linecap="round"/>
+
+            <!-- ojos pegados -->
+            <circle cx="104" cy="65" r="14" fill="#FFF" stroke="#4B5960" stroke-width="4"/>
+            <circle cx="146" cy="66" r="14" fill="#FFF" stroke="#4B5960" stroke-width="4"/>
+            <circle cx="107" cy="67" r="5" fill="#26363D"/>
+            <circle cx="143" cy="68" r="5" fill="#26363D"/>
+
+            <!-- lana -->
+            <path d="M95 31c8-20 12-19 14 2M115 24c8-23 12-21 14 4M135 27c8-20 12-18 14 5"
+                  stroke="#6E4A2E" stroke-width="8" stroke-linecap="round"/>
+
+            <!-- parche artesanal -->
+            <path d="M89 202l34-8 6 34-35 7Z" fill="#F4C542" stroke="#B58C1A" stroke-width="4"/>
+            <path d="M95 208l26 16M120 201l-21 27" stroke="#FFF4B5" stroke-width="3"/>
+          </g>
+
+          <!-- títere 2 -->
+          <g transform="translate(395 178) rotate(5)">
+            <!-- mano -->
+            <path d="M84 269c-17 51-9 95 15 130 12 17 40 12 43-9l10-87Z"
+                  fill="#C88760" opacity=".94"/>
+
+            <!-- calcetín -->
+            <path d="M71 81
+                     c3-48 30-73 73-58
+                     34 12 44 45 34 80
+                     l-14 47
+                     c-10 36-15 83-12 136
+                     l-82-2
+                     c8-60 10-116 1-164Z"
+                  fill="url(#cloth2)" stroke="#B85B79" stroke-width="6"/>
+
+            <!-- boca -->
+            <path d="M80 111c28 15 59 17 88 0" fill="#F8D8D0" stroke="#8C4660" stroke-width="5"/>
+            <path d="M90 114c23 8 45 8 67 0" stroke="#A45A58" stroke-width="4" stroke-linecap="round"/>
+
+            <!-- ojos -->
+            <circle cx="105" cy="68" r="14" fill="#FFF" stroke="#4B5960" stroke-width="4"/>
+            <circle cx="147" cy="69" r="14" fill="#FFF" stroke="#4B5960" stroke-width="4"/>
+            <circle cx="108" cy="70" r="5" fill="#26363D"/>
+            <circle cx="144" cy="71" r="5" fill="#26363D"/>
+
+            <!-- lana -->
+            <path d="M93 34c9-18 13-18 15 4M114 28c8-22 12-21 15 4M136 31c7-18 11-18 14 5"
+                  stroke="#342D2B" stroke-width="8" stroke-linecap="round"/>
+
+            <!-- retazo -->
+            <circle cx="116" cy="220" r="18" fill="#67B84F" stroke="#4C8A3A" stroke-width="4"/>
+            <path d="M104 220h24M116 208v24" stroke="#D8F0CF" stroke-width="3"/>
+          </g>
+
+          <!-- señales de conversación, no violencia -->
+          <g opacity=".78">
+            <path d="M318 128c15-20 32-28 53-25" fill="none" stroke="#F28A3B" stroke-width="4" stroke-linecap="round" stroke-dasharray="5 9"/>
+            <circle cx="321" cy="128" r="6" fill="#F28A3B"/>
+            <circle cx="375" cy="104" r="6" fill="#168CCB"/>
+          </g>
+
+          <!-- siluetas discretas de niños observando -->
+          <g opacity=".76">
+            <circle cx="123" cy="465" r="30" fill="#8C6B5A"/>
+            <path d="M67 590c3-72 22-105 56-105s55 34 57 105Z" fill="#7FB8D2"/>
+            <circle cx="721" cy="471" r="29" fill="#A56E52"/>
+            <path d="M666 590c4-69 23-101 55-101 34 0 54 33 57 101Z" fill="#DDA8D8"/>
+          </g>
+        </svg>
+      </section>
+
+      <section class="quick" aria-labelledby="quick-title">
+        <div class="quick-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2.5 12s3.6-6 9.5-6 9.5 6 9.5 6-3.6 6-9.5 6-9.5-6-9.5-6Z"/>
+            <circle cx="12" cy="12" r="2.7"/>
+          </svg>
+        </div>
+
+        <div>
+          <h2 id="quick-title">Vista rápida</h2>
+          <p>
+            Representa la historia con títeres, haz pausas para conversar
+            y ayuda al grupo a proponer formas de buscar apoyo frente a la violencia.
+          </p>
+        </div>
+
+        <svg class="route-deco" viewBox="0 0 100 50" aria-hidden="true">
+          <path d="M4 15c21 25 37-11 56 10 14 15 24 3 35-8"
+                fill="none" stroke="#F28A3B" stroke-width="3"
+                stroke-linecap="round" stroke-dasharray="5 9"/>
+          <circle cx="4" cy="15" r="4" fill="#F28A3B"/>
+        </svg>
+      </section>
+
+      <section class="actions" aria-label="Accesos de la estación">
+
+        <a class="action-card" href="#" data-demo-link aria-label="Qué preparo">
+          <span class="action-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 36c5-6 8-11 8-18 0-4 2-7 5-7s5 3 5 7v4"/>
+              <path d="M29 22c2-4 5-6 8-4 3 2 2 6 0 9l-8 12H16"/>
+              <circle cx="22" cy="12" r="4"/>
+              <circle cx="35" cy="16" r="4"/>
+              <path d="M20 29h10"/>
+            </svg>
+          </span>
+
+          <span class="action-copy">
+            <strong>¿Qué preparo?</strong>
+            <span>Títeres, guion y espacio de dramatización</span>
+          </span>
+
+          <span class="chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 5 7 7-7 7"/>
+            </svg>
+          </span>
+        </a>
+
+        <a class="action-card" href="#" data-demo-link aria-label="Cómo se realiza">
+          <span class="action-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="24" cy="20" r="12"/>
+              <path d="m21 14 9 6-9 6z" fill="currentColor" stroke="none"/>
+              <path d="M10 39h28"/>
+              <circle cx="14" cy="39" r="3" fill="currentColor" stroke="none"/>
+              <circle cx="34" cy="39" r="3" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+
+          <span class="action-copy">
+            <strong>¿Cómo se realiza?</strong>
+            <span>Ver paso a paso</span>
+          </span>
+
+          <span class="chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 5 7 7-7 7"/>
+            </svg>
+          </span>
+        </a>
+
+      </section>
+    </div>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <a class="nav-item" href="../index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m3 11 9-8 9 8"/>
+        <path d="M5.5 9.5V21h13V9.5M9.5 21v-7h5v7"/>
+      </svg>
+      <span>Inicio</span>
+    </a>
+
+    <a class="nav-item is-active" href="../index.html?view=stations" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="6" cy="5" r="2"/>
+        <circle cx="18" cy="19" r="2"/>
+        <path d="M6 7v3c0 1.7 1.3 3 3 3h6c1.7 0 3 1.3 3 3v1"/>
+        <path d="m15 4 3-2 3 2v5h-6Z"/>
+      </svg>
+      <span>Estaciones</span>
+    </a>
+
+    <a class="nav-item" href="#" data-demo-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="7" width="18" height="13" rx="2"/>
+        <path d="M8 7V5c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2M3 12h18M10 12v2h4v-2"/>
+      </svg>
+      <span>Mi Kit</span>
+    </a>
+  </nav>
+</div>
+
+<script>
+  document.querySelectorAll('[data-demo-link]').forEach(function(link){
+    link.addEventListener('click', function(event){
+      event.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>
